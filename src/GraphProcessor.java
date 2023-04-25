@@ -13,7 +13,7 @@ import java.util.*;
  */
 public class GraphProcessor {
     private List<Point> vertices;
-    private Map<Point, List<Point>> adjacencyList;
+    private HashMap<Point, HashSet<Point>> adjacencyList;
 
     /**
      * Creates and initializes a graph from a source data
@@ -24,30 +24,41 @@ public class GraphProcessor {
      * @throws Exception if file not found or error reading
      */
     public void initialize(FileInputStream file) throws Exception {
-        Scanner scanner = new Scanner(file);
-        String line = scanner.nextLine();
-        if (!line.equals("graph")) {
-            throw new Exception("Could not read .graph file");
-        }
-        int numVertices = scanner.nextInt();
-        scanner.nextLine();
-        vertices = new ArrayList<>();
-        adjacencyList = new HashMap<>();
-        for (int i = 0; i < numVertices; i++) {
-            line = scanner.nextLine();
-            String[] parts = line.split(" ");
-            Point vertex = new Point(Double.parseDouble(parts[1]), Double.parseDouble(parts[2]));
-            vertices.add(vertex);
-            List<Point> adjacentVertices = new ArrayList<>();
-            for (int j = 3; j < parts.length; j++) {
-                int adjacentVertexIndex = Integer.parseInt(parts[j]);
-                Point adjacentVertex = vertices.get(adjacentVertexIndex);
-                adjacentVertices.add(adjacentVertex);
+            Scanner reader = new Scanner(file);
+            adjacencyList = new HashMap<>(); 
+            String[] first = reader.nextLine().split(" ");
+            int numVertices = Integer.parseInt(first[0]);
+            int numEdges = Integer.parseInt(first[1]);
+    
+            Point[] arr = new Point[numVertices];
+    
+            for(int i = 0; i < numVertices; i ++){ //continue reading lines for every vertex in the file
+                String[] line = reader.nextLine().split(" ");
+                String name = line[0];
+                Double latitude = Double.parseDouble(line[1]);
+                Double longitude = Double.parseDouble(line[2]);
+                Point p = new Point(latitude, longitude); //creates new Point with input from the file
+                adjacencyList.put(p, new HashSet<Point>()); //adds the new Point to the adjacency list with an empty corresponding set for storing adjacent points
+                arr[i] = p; //store the point in array at the corresponding index 
             }
-            adjacencyList.put(vertex, adjacentVertices);
+    
+            for(int i = 0; i < numEdges; i++){ //for every edge in the file
+                String[] line = reader.nextLine().split(" ");
+                int vertex1 = Integer.parseInt(line[0]);
+                int vertex2 = Integer.parseInt(line[1]);
+                if(line.length > 2){ //stores the name if it appears in the file
+                    String name = line[2];
+                }
+    
+    
+                Point p1 = arr[vertex1]; //accesses the point based on the given index in the array previously created 
+                Point p2 = arr[vertex2];
+                adjacencyList.get(p1).add(p2); //adds both of the points to each others adjacency sets 
+                adjacencyList.get(p2).add(p1);
+            }
+    
         }
-        scanner.close();
-    }
+    
 
     /**
      * Searches for the point in the graph that is closest in
