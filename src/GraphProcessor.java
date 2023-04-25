@@ -12,8 +12,8 @@ import java.util.*;
  *
  */
 public class GraphProcessor {
-    public List<Point> vertices;
-    public Map<Point, List<Point>> adjacencyList;
+    private List<Point> vertices;
+    private Map<Point, List<Point>> adjacencyList;
 
     /**
      * Creates and initializes a graph from a source data
