@@ -8,9 +8,9 @@ import java.util.*;
  * To do: Add your name(s) as authors
  */
 public class GraphDemo {
-    public static void main(String[] args) throws Exception{
+    public static void main(String[] args) throws Exception {
         GraphProcessor graphProcessor = new GraphProcessor();
-        Visualize visualizer = new Visualize ("data/usa.vis", "images/usa.png");
+        Visualize visualizer = new Visualize("data/usa.vis", "images/usa.png");
         FileInputStream input = new FileInputStream("data/usa.graph");
         graphProcessor.initialize(input);
         Scanner scan = new Scanner(System.in);
@@ -32,14 +32,12 @@ public class GraphDemo {
         Point start = graphProcessor.nearestPoint(point1);
         Point end = graphProcessor.nearestPoint(point2);
 
-        List<Point> myRoute = graphProcessor.route(start,end);
+        List<Point> myRoute = graphProcessor.route(start, end);
         visualizer.drawRoute(myRoute);
 
         double myDist = graphProcessor.routeDistance(myRoute);
-        System.out.println("Distance: "+ myDist + "miles");
-
-
-    }
+        System.out.println("Distance: " + myDist + "miles");
 
     }
+
 }

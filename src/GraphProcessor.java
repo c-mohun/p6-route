@@ -73,8 +73,6 @@ public class GraphProcessor {
         return nearest;
     }
 
-    }
-
     /**
      * Calculates the total distance along the route, summing
      * the distance between the first and the second Points,
@@ -94,7 +92,8 @@ public class GraphProcessor {
         for (int i = 1; i < route.size(); i++) {
             Point currentPoint = route.get(i);
             double distance = previousPoint.distance(currentPoint);
-            return totalDistance;
+        }
+        return totalDistance;
     }
 
     /**
