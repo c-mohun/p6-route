@@ -22,7 +22,7 @@ import java.io.FileInputStream;
  * Models a weighted graph of latitude-longitude points
  * and supports various distance and routing operations.
  * To do: Add your name(s) as additional authors
- * @author Brandon Fain
+ * @author Ashley Cho Clementine Mohun
  *
  */
 public class GraphProcessor {
@@ -57,11 +57,12 @@ public class GraphProcessor {
         }
 
         for(int i = 0; i < EdgesCount; i++){ 
+            String name = "";
             String[] line = reader.nextLine().split(" ");
             int V1 = Integer.parseInt(line[0]);
             int V2 = Integer.parseInt(line[1]);
-            if(line.length > 2){ /
-                String name = line[2];
+            if(line.length > 2){ 
+                name = line[2];
             }
             Point p1 = arr[V1]; 
             Point p2 = arr[V2];
@@ -72,6 +73,7 @@ public class GraphProcessor {
     }
 
 
+    
     /**
      * Searches for the point in the graph that is closest in
      * straight-line distance to the parameter point p
